@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label"
 import { ArrowRight, Copy, Link, Scissors, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import axios from 'axios'
+let apiUrl = process.env.NEXT_PUBLIC_API_URL
+let feUrl = process.env.NEXT_PUBLIC_FE_URL
 
 export default function URLShortener() {
   const [longUrl, setLongUrl] = useState('')
@@ -25,20 +27,15 @@ export default function URLShortener() {
     setError('');
   
     try {
-      console.log("hi");
-      
       const response = await axios.post<{
         data: any 
       }>(
-        `http://localhost:8080/shorten`, 
+        `${apiUrl}/shorten`, 
         {
           url: longUrl // Replace 'url' with the appropriate key your backend expects.
         }
       );
-      
       setShortUrl(response.data.data.shortUrl);
-      console.log(shortUrl);
-      
     } catch (err) {
       setError('Failed to shorten URL. Please try again.');
       console.error('Error:', err);
@@ -48,7 +45,7 @@ export default function URLShortener() {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shortUrl)
+    navigator.clipboard.writeText(`${feUrl}/${shortUrl}`)
       .then(() => alert('Copied to clipboard!'))
       .catch(() => alert('Failed to copy. Please try manually.'))
   }
@@ -109,7 +106,7 @@ export default function URLShortener() {
                 <Input
                   id="shortUrl"
                   type="url"
-                  value={`http://localhost:3000/${shortUrl}`}
+                  value={`${feUrl}/${shortUrl}`}
                   readOnly
                   className="flex-grow transition-all duration-300 focus:ring-2 focus:ring-primary"
                 />
