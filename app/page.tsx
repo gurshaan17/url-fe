@@ -25,14 +25,20 @@ export default function URLShortener() {
     setError('');
   
     try {
-      const response = await axios.post<{ shortUrl: string }>(
-        `http://localhost:3000/shorten`, 
+      console.log("hi");
+      
+      const response = await axios.post<{
+        data: any 
+      }>(
+        `http://localhost:8080/shorten`, 
         {
-          shortUrl: shortUrl // Replace 'url' with the appropriate key your backend expects.
+          url: longUrl // Replace 'url' with the appropriate key your backend expects.
         }
       );
       
-      setShortUrl(response.data.shortUrl);
+      setShortUrl(response.data.data.shortUrl);
+      console.log(shortUrl);
+      
     } catch (err) {
       setError('Failed to shorten URL. Please try again.');
       console.error('Error:', err);
@@ -103,7 +109,7 @@ export default function URLShortener() {
                 <Input
                   id="shortUrl"
                   type="url"
-                  value={shortUrl}
+                  value={`http://localhost:3000/${shortUrl}`}
                   readOnly
                   className="flex-grow transition-all duration-300 focus:ring-2 focus:ring-primary"
                 />
