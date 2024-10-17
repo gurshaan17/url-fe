@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { ArrowRight, Copy, Link, Scissors, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import axios from 'axios'
 
 export default function URLShortener() {
   const [longUrl, setLongUrl] = useState('')
@@ -19,22 +20,26 @@ export default function URLShortener() {
   useEffect(() => setMounted(true), [])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
-
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+  
     try {
-      // This is a mock API call. In a real application, you would call your backend API here.
-      const response = await new Promise<{ shortUrl: string }>((resolve) => 
-        setTimeout(() => resolve({ shortUrl: `https://short.url/${Math.random().toString(36).substr(2, 6)}` }), 1000)
-      )
-      setShortUrl(response.shortUrl)
+      const response = await axios.post<{ shortUrl: string }>(
+        `http://localhost:3000/shorten`, 
+        {
+          shortUrl: shortUrl // Replace 'url' with the appropriate key your backend expects.
+        }
+      );
+      
+      setShortUrl(response.data.shortUrl);
     } catch (err) {
-      setError('Failed to shorten URL. Please try again.')
+      setError('Failed to shorten URL. Please try again.');
+      console.error('Error:', err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shortUrl)
