@@ -20,7 +20,6 @@ export default function URLShortener() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
-console.log(`${apiUrl}/shorten`)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
