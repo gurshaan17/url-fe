@@ -44,7 +44,7 @@ export default function URLShortener() {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`${feUrl}/${shortUrl}`)
+    navigator.clipboard.writeText(`https://shorturl17.vercel.app/${shortUrl}`)
       .then(() => alert('Copied to clipboard!'))
       .catch(() => alert('Failed to copy. Please try manually.'))
   }
@@ -105,7 +105,7 @@ export default function URLShortener() {
                 <Input
                   id="shortUrl"
                   type="url"
-                  value={`${feUrl}/${shortUrl}`}
+                  value={`https://shorturl17.vercel.app/${shortUrl}`}
                   readOnly
                   className="flex-grow transition-all duration-300 focus:ring-2 focus:ring-primary"
                 />
