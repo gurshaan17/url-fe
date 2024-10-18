@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { ArrowRight, Copy, Link, Scissors, Moon, Sun } from "lucide-react"
+import { ArrowRight, Copy, Link, Scissors, Moon, Sun, Mail, Github } from "lucide-react"
 import { useTheme } from "next-themes"
 import axios from 'axios'
 let apiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -127,6 +127,26 @@ export default function URLShortener() {
           )}
         </CardContent>
       </Card>
+      <div>
+      <footer className="mt-auto flex gap-4 py-4">
+                <a
+                    href="mailto:gurshaansinghd@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-500 transition-colors"
+                >
+                    <Mail className="w-6 h-6" />
+                </a>
+                <a
+                    href="https://github.com/gurshaan17/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-500 transition-colors"
+                >
+                    <Github className="w-6 h-6" />
+                </a>
+        </footer>
+        </div>
     </div>
   )
 }
