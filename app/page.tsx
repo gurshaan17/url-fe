@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { ArrowRight, Copy, Link, Scissors, Moon, Sun, Mail, Github } from "lucide-react"
+import { ArrowRight, Copy, Link, Scissors, Moon, Sun, Mail, Github, QrCode } from "lucide-react"
 import { useTheme } from "next-themes"
 import axios from 'axios'
+import QRCode, { QRCodeCanvas } from 'qrcode.react'
 let apiUrl = process.env.NEXT_PUBLIC_API_URL
 let feUrl = process.env.NEXT_PUBLIC_FE_URL
 
@@ -18,6 +19,7 @@ export default function URLShortener() {
   const [error, setError] = useState('')
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [showQR, setShowQR] = useState(false)
 
   useEffect(() => setMounted(true), [])
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,6 +114,9 @@ export default function URLShortener() {
                 <Button size="icon" onClick={copyToClipboard} className="transition-all duration-300 hover:bg-primary/90">
                   <Copy className="h-4 w-4" />
                 </Button>
+                <Button size="icon" onClick={() => setShowQR(!showQR)} className="transition-all duration-300 hover:bg-primary/90">
+                  <QrCode className="h-4 w-4" />
+                </Button>
               </div>
               <a
                 href={shortUrl}
@@ -123,6 +128,17 @@ export default function URLShortener() {
                 Open shortened URL
                 <ArrowRight className="h-4 w-4 ml-1" />
               </a>
+              {showQR && (
+                <div className="mt-4 flex justify-center">
+                  <div className="p-4 bg-white rounded-lg">
+                    <QRCodeCanvas
+                      value={longUrl}
+                      size={200}
+                      level="H"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </CardContent>
