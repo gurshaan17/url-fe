@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { ArrowRight, Copy, Link, Scissors, Moon, Sun, Mail, Github, QrCode } from "lucide-react"
 import { useTheme } from "next-themes"
 import axios from 'axios'
-import QRCode, { QRCodeCanvas } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 let apiUrl = process.env.NEXT_PUBLIC_API_URL
 let feUrl = process.env.NEXT_PUBLIC_FE_URL
 
